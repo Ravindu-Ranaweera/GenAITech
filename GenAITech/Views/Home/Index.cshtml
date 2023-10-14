@@ -1,0 +1,337 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using GenAITech
+@model IEnumerable<GenAITech.Models.GenAI>
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    
+</style>
+
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="hero-section">
+        <video loop muted autoplay="autoplay" preload="auto" id="background-video">
+            <source src="@Url.Content("~/videos/video.mp4")" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <div class="video-content">
+            <h1 class="main-heading">Generative AI Technology</h1>
+            <div class="content">
+                <p>
+                    Any time an AI technology is generating something on its own, it can be referred to as
+                    "generative AI." This umbrella term includes learning algorithms that make predictions
+                    as well as those that can use prompts to autonomously write articles and paint pictures.
+                    Techopedia
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="parallax-container ">
+        <div class="blog-card">
+            <div class="description">
+                <h1>
+                    GenAI Tools
+                </h1>
+                <p>
+                    Generative AI tools refer to software or systems that use neural network techniques to
+                    process and comprehend input data, subsequently producing meaningful responses.
+                    Scribehow
+                </p>
+                <div class="read-more">
+                    <a asp-area="" asp-controller="Home" asp-action="GenAiTools">Read More</a>
+                </div>
+            </div>
+            <div class="images">
+                <div class="image-1">
+                    <img src="@Url.Content("/images/genaisites/bard_thumbnail.jpg")"
+                         alt="" />
+                </div>
+                <div class="image-2">
+                    <img src="@Url.Content("/images/genaisites/midjourney_thumbnail.jpg")"
+                         alt="" />
+                </div>
+            </div>
+        </div>
+            <div class="blog-card">
+                <div class="images">
+                    <div class="image-1">
+                        <img src="@Url.Content("/images/genaisites/ms_thumbnail.jpg")"
+                             alt="" />
+                    </div>
+                    <div class="image-2">
+                        <img src="@Url.Content("/images/genaisites/google_thumbnail.jpg")"
+                             alt="" />
+                    </div>
+                </div>
+                <div class="description">
+                    <h1>
+                        GenAI Organisations
+                    </h1>
+                    <p>
+                        Generative AI Organizations like Microsoft, Google, Amazon and IBM have invested
+                        hundreds of millions of dollars and massive compute power to build the foundational
+                        models on which services like ChatGPT and others depend.
+                        Gartner
+                    </p>
+                    <div class="read-more">
+                    <a asp-area="" asp-controller="Home" asp-action="GenAiOrganizasion">Read More</a>
+                    </div>
+                </div>
+
+            </div>
+        <div class="blog-card">
+            <div class="description">
+                <h1>
+                    GenAI Applications
+                </h1>
+                <p>
+                    Text: GPT-3, LaMDA, LLaMA, BLOOM and GPT-4.
+                    Code: OpenAI Codex.
+                    Images: DALL-E, Midjourney and Stable Diffusion.
+                    Video: Make-A-Video (Meta Platforms).
+                    Wikipedia
+                </p>
+                <div class="read-more">
+                    <a asp-area="" asp-controller="Home" asp-action="GenAiApplications">Read More</a>
+                </div>
+            </div>
+            <div class="images">
+                <div class="image-1">
+                    <img src="@Url.Content("/images/genaisites/chatgpt_thumbnail.jpg")"
+                         alt="" />
+                </div>
+                <div class="image-2">
+                    <img src="@Url.Content("/images/genaisites/dalle_thumbnail.jpg")"
+                         alt="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-card">
+            <div class="images">
+                <div class="image-1">
+                    <img src="@Url.Content("/images/genaisites/pie.jpg")"
+                         alt="" />
+                </div>
+                <div class="image-2">
+                    <img src="@Url.Content("/images/genaisites/job.jpg")"
+                         alt="" />
+                </div>
+            </div>
+            <div class="description">
+                <h1>
+                    AI Jobs
+                </h1>
+                <p>
+                    The prime source for jobs and talents in AI, ML, Data Science and Big Data: Insights AIJobs
+                    Python source for tables and charts: Kaggle.
+
+                </p>
+                <div class="read-more">
+                    <a asp-area="" asp-controller="Jobs" asp-action="Index">Read More</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="parallax-container-list">
+            <h1 class="custom-h1">GenAI List</h1>
+            <a class="parallax-container-list-a" asp-controller="GenAIs" asp-action="Create">Click Here to add new genrate AI website</a>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <a href="@Url.Action("Index", "GenAIs")">
+                        <div class="custom-tile">
+                            <p class="tile-title">@item.GenAIName</p>
+                            <img src="~/images/@item.ImageFilename" class="tile-image" alt="GenAI Image">
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="hero-section">
+        <video loop muted autoplay="autoplay" preload="auto" id="background-video">
+            <source src="@Url.Content("~/videos/video.mp4")" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <div class="video-content">
+            <h1 class="main-heading">Generative AI Technology</h1>
+            <div class="content">
+                <p>
+                    Any time an AI technology is generating something on its own, it can be referred to as
+                    "generative AI." This umbrella term includes learning algorithms that make predictions
+                    as well as those that can use prompts to autonomously write articles and paint pictures.
+                    Techopedia
+                </p>
+            </div>
+        </div>
+    </div>
+   
+        
+  
+    <div class="parallax-container ">
+        <div class="blog-card">
+            <div class="description">
+                <h1>
+                    GenAI Tools
+                </h1>
+                <p>
+                    Generative AI tools refer to software or systems that use neural network techniques to
+                    process and comprehend input data, subsequently producing meaningful responses.
+                    Scribehow
+                </p>
+                <div class="read-more">
+                    <a href="#">Read More</a>
+                </div>
+            </div>
+            <div class="images">
+                <div class="image-1">
+                    <img src="@Url.Content("/images/genaisites/bard_thumbnail.jpg")"
+                         alt="" />
+                </div>
+                <div class="image-2">
+                    <img src="@Url.Content("/images/genaisites/midjourney_thumbnail.jpg")"
+                         alt="" />
+                </div>
+            </div>
+        </div>
+            <div class="blog-card">
+                <div class="images">
+                    <div class="image-1">
+                        <img src="@Url.Content("/images/genaisites/ms_thumbnail.jpg")"
+                             alt="" />
+                    </div>
+                    <div class="image-2">
+                        <img src="@Url.Content("/images/genaisites/google_thumbnail.jpg")"
+                             alt="" />
+                    </div>
+                </div>
+                <div class="description">
+                    <h1>
+                        GenAI Organisations
+                    </h1>
+                    <p>
+                        Generative AI Organizations like Microsoft, Google, Amazon and IBM have invested
+                        hundreds of millions of dollars and massive compute power to build the foundational
+                        models on which services like ChatGPT and others depend.
+                        Gartner
+                    </p>
+                    <div class="read-more">
+                        <a href="#">Read More</a>
+                    </div>
+                </div>
+
+            </div>
+
+        <div class="blog-card">
+            <div class="description">
+                <h1>
+                    GenAI Applications
+                </h1>
+                <p>
+                    Text: GPT-3, LaMDA, LLaMA, BLOOM and GPT-4.
+                    Code: OpenAI Codex.
+                    Images: DALL-E, Midjourney and Stable Diffusion.
+                    Video: Make-A-Video (Meta Platforms).
+                    Wikipedia
+                </p>
+                <div class="read-more">
+                    <a href="#">Read More</a>
+                </div>
+            </div>
+            <div class="images">
+                <div class="image-1">
+                    <img src="@Url.Content("/images/genaisites/chatgpt_thumbnail.jpg")"
+                         alt="" />
+                </div>
+                <div class="image-2">
+                    <img src="@Url.Content("/images/genaisites/dalle_thumbnail.jpg")"
+                         alt="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-card">
+            <div class="images">
+                <div class="image-1">
+                    <img src="@Url.Content("/images/genaisites/pie.jpg")"
+                         alt="" />
+                </div>
+                <div class="image-2">
+                    <img src="@Url.Content("/images/genaisites/job.jpg")"
+                         alt="" />
+                </div>
+            </div>
+            <div class="description">
+                <h1>
+                    AI Jobs
+                </h1>
+                <p>
+                    The prime source for jobs and talents in AI, ML, Data Science and Big Data: Insights AIJobs
+                    Python source for tables and charts: Kaggle.
+
+                </p>
+                <div class="read-more">
+                    <a href="#">Read More</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="parallax-container-list">
+            <h1 class="custom-h1">GenAI List</h1>
+            <a class="parallax-container-list-a" >Please login or register to add a new generative AI website.</a>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-6 col-md-4 col-lg-2 mb-4">
+                        <a href="@Url.Action("Index", "GenAIs")">
+                            <div class="custom-tile">
+                                <p class="tile-title">@item.GenAIName</p>
+                                <img src="~/images/@item.ImageFilename" class="tile-image" alt="GenAI Image">
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+        
+    </div>
+}
+
+
+
+
+
+
+
+
+<script>
+    document.querySelectorAll('.fade-in').forEach(element => {
+        element.addEventListener('mouseover', () => {
+            element.style.opacity = '1';
+        });
+        element.addEventListener('click', () => {
+            window.location.href = "GenAIs";
+        });
+    });
+
+    document.querySelectorAll('.custom-tile').forEach(element => {
+        element.addEventListener('click', () => {
+            console.log("Test");
+        });
+    });
+ 
+</script>
+

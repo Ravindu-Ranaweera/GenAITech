@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model IEnumerable<GenAITech.Models.GenAI>
+
+<style>
+    .name-clicked{
+        padding:15px;
+        text-align:center;
+        color:white
+    }
+</style>
+
+
+<div class="parallax-container">
+    <h1 class="main-heading">Generative AI Technology</h1>
+    <div class="row">
+            <a class="name-clicked" asp-action="Create">Click Here to add new genrate AI website</a>
+        @foreach (var item in Model.Select((value, i) => new { i, value }))
+        {
+            <div class="col-lg-12  custom-block-content-container @((item.i % 2 == 0) ? "custom-block-content-container" : "custom-block-content-container-even")">
+                <div class="custom-block">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4">
+                            <img src="~/images/@item.value.ImageFilename" class="img-fluid index-image" alt="GenAI Image">
+                        </div>
+                        <div class="col-lg-8 custom-block-content">
+                            <h3>@item.value.GenAIName</h3>
+                            <p>@item.value.Summary</p>
+                            @if (@User.Identity?.Name == "admin@asp.net")
+                            {
+                                <div>
+                                    <a data-id="@item.value.Id" class="btn btn-primary">Like (@item.value.Like)</a>
+                                    <a href="@Url.Action("Edit", "GenAIs", new { id = item.value.Id })" class="btn btn-success">Edit</a>
+                                    <a href="@Url.Action("Delete", "GenAIs", new { id = item.value.Id })" class="btn btn-danger">Delete</a>
+
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div>
+                                    <a data-id="@item.value.Id" class="btn btn-primary">Like (@item.value.Like)</a>
+
+                                </div>
+
+                            }
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+<script>
+    document.querySelectorAll('.btn-primary').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            let currentLike = parseInt(button.innerText.match(/\d+/)[0]);
+            let newLike = currentLike + 1;
+            button.innerText = `Like (${newLike})`;
+
+            let itemId = button.getAttribute('data-id');
+
+            // Make an AJAX call to update the database
+            // Example AJAX call using fetch
+            fetch(`/GenAIs/IncrementLike?id=${itemId}&newLikeCount=${newLike}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
+
+
+
+
+
+

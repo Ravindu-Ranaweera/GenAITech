@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewData["Title"] = "GoogleBRAD";
+}
+
+<section class="contact">
+    <img src="@Url.Content("/images/background/bg5.jpg")" alt="Picture">
+    <div class="overlay-contact">
+        <h2>GenAI Tools</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="featuredPropBox">
+                        <ul>
+                            <li>
+                                <div>
+                                    <div class="fptext">
+                                        <p>Chat GPT</p>
+                                        <div class="line"></div>
+                                        <a asp-area="" asp-controller="GenAITools" asp-action="ChatGPT">More Details</a>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <div class="fptext">
+                                        <p>Google BRAD</p>
+                                        <div class="line"></div>
+                                        <a asp-area="" asp-controller="Home" asp-action="GenAiTools">More Details</a>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <div class="fptext">
+                                        <p>Midjourney</p>
+                                        <div class="line"></div>
+                                        <a asp-area="" asp-controller="Home" asp-action="GenAiTools">More Details</a>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <div class="fptext">
+                                        <p>DALL-E</p>
+                                        <div class="line"></div>
+                                        <a asp-area="" asp-controller="Home" asp-action="GenAiTools">More Details</a>
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="hero-tools">
+
+        <!-- Right Section Image -->
+        <div class="imagehero-section">
+            <div class="image-5">
+                <img src="@Url.Content("/images/genai/chatgpt_large.jpg")">
+            </div>
+
+        </div>
+
+        <!-- Left Section Text -->
+        <div class="left-hero-section">
+            <h1 class="heading-hero">Google Bard</h1>
+            <div class="btn">More Details</div>
+            <p class="detail-heading">
+                Bard is a conversational generative artificial intelligence chatbot developed by Google,
+                based initially on the LaMDA family of large language models and later the PaLM LLM.
+                (Wikipedia)
+
+            </p>
+
+            <a class="btn2">Website</a>
+            <div class="image-6">
+                <img src="@Url.Content("/images/genai/chatgpt_large.jpg")">
+            </div>
+            
+        </div>
+
+
+    </div>
+</div>

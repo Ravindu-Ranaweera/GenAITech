@@ -1,0 +1,300 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using GenAITech
+@using Newtonsoft.Json;
+@model IEnumerable<GenAITech.Models.JobData>
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Jobs Page";
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<style>
+    table {
+        font-family: Arial, sans-serif;
+        border-collapse: collapse;
+    }
+
+    th {
+        background-color: blue;
+        color: yellow;
+        padding: 8px;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        color: black;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr {
+        background-color: #f2f2f2;
+    }
+
+    .index {
+        color: yellow;
+        font-weight: bold;
+
+    }
+
+    #chartdiv {
+        background-color:white;
+        width: 80%;
+        height: 400px;
+    }
+</style>
+
+<div class="parallax-container-job">
+    <section class="contact">
+        <img src="@Url.Content("/images/background/bg1.jpg")" alt="Picture">
+        <div class="overlay-contact">
+            <h2>AI Jobs</h2>
+            <h3 class="sub-heading-jobs">
+                Ai Jobs dataset:AI Jobs
+                Python source for table  and charts Kaggle
+            </h3>
+        </div>
+    </section>
+
+    <section class="contact">
+        <img src="@Url.Content("/images/background/bg3.jpg")" alt="Picture">
+        <div class="overlay-contact">
+            <div class="job-container">
+
+                <div class="table-container">
+                    <div class="discription-block">
+                        <h3>Top 5 Companies</h3>
+                        <p>Accourding to number of employee </p>
+                    </div>
+                    <div class="table-block">
+                        <table>
+                            <tr>
+                                <th>Index</th>
+                                <th>Work Year</th>
+                                <th>Experience Level</th>
+                                <th>Employment Type</th>
+                                <th>Job Title</th>
+                                <th>Salary</th>
+                                <th>Salary Currency</th>
+                                <th>Salary in USD</th>
+                                <th>Employee Residence</th>
+                                <th>Remote Ratio</th>
+                                <th>Company Location</th>
+                                <th>Company Size</th>
+                            </tr>
+
+                            @foreach (var item in ViewBag.TopCompanies)
+                            {
+                                <tr>
+                                    <td class="index">1</td>
+                                    <td>@item.work_year</td>
+                                    <td>@item.experience_level</td>
+                                    <td>@item.employment_type</td>
+                                    <td>@item.job_title</td>
+                                    <td>@item.salary</td>
+                                    <td>@item.salary_currency</td>
+                                    <td>@item.salary_in_usd</td>
+                                    <td>@item.employee_residence</td>
+                                    <td>@item.remote_ratio</td>
+                                    <td>@item.company_location</td>
+                                    <td>@item.company_size</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <!--
+                 <div style="width: 50%;">
+                     <canvas id="jobTitleChart"></canvas>
+                  </div>-->
+                <div class="table-container">
+                    <div class="table-block">
+                        <div id="chartdiv"></div>
+                    </div>
+                    <div class="discription-block">
+                        <h3>Job Distribution</h3>
+                        <p>Among top 10 demand job title </p>
+                    </div>
+                   
+                </div>
+
+                <div class="table-container">
+                    
+                    <div class="discription-block">
+                        <h3>Salaries</h3>
+                        <p>In the last 3 year </p>
+                    </div>
+                    <div class="table-block">
+                        <div id="chartdivBar">
+                            <canvas id="salaryTotalsChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+ </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script>
+    
+    //var ctx = document.getElementById('jobTitleChart').getContext('2d');   
+    var topJobTitlesBySalary = @Html.Raw(JsonConvert.SerializeObject(ViewBag.TopJobTitlesBySalary));
+    const p = JSON.parse(topJobTitlesBySalary)
+   
+    var jobTitles = Object.keys(p);
+    
+    var salaries = Object.values(p);
+    /**
+    var jobTitleChart = new Chart(ctx, {
+        type: 'pie', // Set the chart type to 'pie'
+        data: {
+            labels: jobTitles,
+            datasets: [{
+                label: 'Average Salary',
+                data: salaries,
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56',
+                    '#8A2BE2',
+                    '#7FFF00',
+                    '#FFA500',
+                    '#DC143C',
+                    '#00BFFF',
+                    '#FFD700',
+                    '#4B0082'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Top Job Titles By Salary'
+                },
+            },// Make the chart responsive
+        }
+    }
+    );
+     */
+
+
+
+    var ctx = document.getElementById('salaryTotalsChart').getContext('2d');
+    var lastFourSalary = {
+        "2020": 26587809,
+        "2021": 121938516,
+        "2022": 276617034,
+        "2023": 713924959
+    };
+
+    var chartData = Object.entries(lastFourSalary).map(([key, value]) => {
+        return { country: key, litres: value };
+    });
+
+    var years = chartData.map(item => item.country);
+    var totals = chartData.map(item => item.litres);
+
+    var salaryTotalsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: years,
+            datasets: [{
+                label: 'Salary Totals',
+                data: totals,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+
+
+
+
+    var chart = am4core.create("chartdiv", am4charts.PieChart);
+    var title = chart.titles.create();
+    title.text = "Job Titles by Salary";
+    title.fontSize = 20;
+    title.marginBottom = 10;
+
+    chart.data = Object.entries(p).map(([key, value]) => {
+        return { country: key, litres: value };
+    });
+   
+
+    // Add data
+    var pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.colors.list = [
+        am4core.color("#845EC2"),
+        am4core.color("#D65DB1"),
+        am4core.color("#FF6F91"),
+        am4core.color("#FF9671"),
+        am4core.color("#FFC75F"),
+        am4core.color("#F9F871"),
+        am4core.color("#6BF178"),
+        am4core.color("#1EA896"),
+        am4core.color("#174FE6"),
+        am4core.color("#5628B4")
+    ];
+    pieSeries.dataFields.value = "litres";
+    pieSeries.dataFields.category = "country";
+
+    pieSeries.ticks.template.disabled = true;
+    pieSeries.alignLabels = false;
+    pieSeries.labels.template.text = "{value.percent.formatNumber('#.0')}%";
+    pieSeries.labels.template.radius = am4core.percent(-40);
+    pieSeries.labels.template.fill = am4core.color("white");
+
+    pieSeries.labels.template.adapter.add("radius", function (radius, target) {
+        if (target.dataItem && (target.dataItem.values.value.percent < 10)) {
+            return am4core.percent(-20);
+        }
+        return radius;
+    });
+    chart.legend = new am4charts.Legend();
+    chart.legend.position = "right";
+    chart.legend.align = "right";
+
+    chart.exporting.menu = new am4core.ExportMenu();
+    chart.exporting.menu.align = "left";
+    chart.exporting.menu.verticalAlign = "top";
+
+
+  
+
+</script>
+
